@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilo para o balão de mensagem */
+        .balao-mensagem {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,7 +35,8 @@
         </form>
     </div>
 
-    <div id="mensagem"></div>
+    <!-- Div para exibir mensagens de erro ou aviso -->
+    <div id="balaoMensagem" class="balao-mensagem"></div>
 
     <script>
         function fazerLogin() {
@@ -30,7 +44,7 @@
             var password = document.getElementById("password").value;
 
             if (username === "" || password === "") {
-                exibirMensagem("Por favor, preencha todos os campos.", "erro");
+                exibirMensagem("Por favor, preencha todos os campos.", "aviso");
                 return;
             }
 
@@ -60,12 +74,12 @@
         }
 
         function exibirMensagem(mensagem, tipo) {
-            var mensagemDiv = document.getElementById("mensagem");
-            mensagemDiv.innerText = mensagem;
-            mensagemDiv.style.color = tipo === "sucesso" ? "green" : "red";
-            mensagemDiv.style.display = "block";
+            var balaoMensagem = document.getElementById("balaoMensagem");
+            balaoMensagem.innerText = mensagem;
+            balaoMensagem.style.backgroundColor = tipo === "sucesso" ? "#4CAF50" : "#f44336";
+            balaoMensagem.style.display = "block";
             setTimeout(function() {
-                mensagemDiv.style.display = "none";
+                balaoMensagem.style.display = "none";
             }, 3000);
         }
     </script>
