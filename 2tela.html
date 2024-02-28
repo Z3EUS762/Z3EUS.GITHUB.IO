@@ -1,32 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bem-vindo</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    .container {
-        text-align: center;
-    }
-    h1 {
-        font-size: 36px;
-        color: #333;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="container">
-    <h1>Bem-vindo</h1>
-</div>
+    <div id="mensagem">Bem-vindo</div>
+
+    <script>
+        // Aguarda 2 segundos e, em seguida, move a mensagem para o canto superior
+        setTimeout(function() {
+            var mensagemDiv = document.getElementById("mensagem");
+            mensagemDiv.style.top = "20px";
+            mensagemDiv.style.left = "20px"; // Movendo para o canto superior esquerdo
+            // Verifica qual usuário está logado (você precisa implementar essa lógica)
+            var usuarioLogado = "Samuel"; // Por exemplo, o nome do usuário logado
+            mensagemDiv.innerText = "Bem-vindo, " + usuarioLogado;
+        }, 2000);
+    </script>
 </body>
 </html>
