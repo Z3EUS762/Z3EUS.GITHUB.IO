@@ -95,8 +95,8 @@
                         });
                         if (credenciaisValidas) {
                             exibirMensagem("Login bem sucedido!", "sucesso");
-                            // Redirecionar para a nova tela (2tela.html)
-                            window.location.href = "2tela.html";
+                            // Redirecionar para a nova tela (2tela.html) incluindo o nome de usuário na URL
+                            window.location.href = "2tela.html?usuario=" + encodeURIComponent(username);
                         } else {
                             exibirMensagem("Usuário ou senha incorretos.", "erro");
                         }
