@@ -4,21 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <style>
-
-        <!-- Referência ao arquivo CSS -->
+    <!-- Referência ao arquivo CSS -->
     <link rel="stylesheet" href="styles.css">
-        
-        /* Estilo para a mensagem de sucesso ou erro */
-        #mensagem {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -36,7 +23,6 @@
         </form>
     </div>
 
-    <!-- Div para exibir a mensagem de sucesso ou erro -->
     <div id="mensagem"></div>
 
     <script>
@@ -49,32 +35,36 @@
                 return;
             }
 
+            // Fazer uma requisição HTTP para carregar o arquivo JSON do GitHub
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "usuarios.json", true);
+            xhr.open("GET", "https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/usuarios.json", true);
             xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var usuarios = JSON.parse(xhr.responseText).usuarios;
-                    var credenciaisValidas = usuarios.some(function(usuario) {
-                        return usuario.username === username && usuario.password === password;
-                    });
-                    if (credenciaisValidas) {
-                        exibirMensagem("Login bem sucedido!", "sucesso");
-                        window.location.href = "dashboard.html";
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var usuarios = JSON.parse(xhr.responseText).usuarios;
+                        var credenciaisValidas = usuarios.some(function(usuario) {
+                            return usuario.username === username && usuario.password === password;
+                        });
+                        if (credenciaisValidas) {
+                            exibirMensagem("Login bem sucedido!", "sucesso");
+                            // Redirecionar para a nova tela (2tela.html)
+                            window.location.href = "2tela.html";
+                        } else {
+                            exibirMensagem("Usuário ou senha incorretos.", "erro");
+                        }
                     } else {
-                        exibirMensagem("Usuário ou senha incorretos.", "erro");
+                        exibirMensagem("Erro ao carregar o arquivo JSON.", "erro");
                     }
                 }
             };
             xhr.send();
         }
 
-        // Função para exibir mensagem de sucesso ou erro
         function exibirMensagem(mensagem, tipo) {
             var mensagemDiv = document.getElementById("mensagem");
             mensagemDiv.innerText = mensagem;
             mensagemDiv.style.color = tipo === "sucesso" ? "green" : "red";
             mensagemDiv.style.display = "block";
-            // Ocultar a mensagem após 3 segundos
             setTimeout(function() {
                 mensagemDiv.style.display = "none";
             }, 3000);
