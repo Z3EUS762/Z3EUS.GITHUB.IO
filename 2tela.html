@@ -4,32 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="mensagem">Bem-vindo</div>
-
-    <script>
-        // Função para obter parâmetros da URL
-        function obterParametroUrl(nomeParametro) {
-            var url = new URL(window.location.href);
-            return url.searchParams.get(nomeParametro);
+    <style>
+        /* Estilos para o corpo da página */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
+            display: flex;
+            justify-content: center; /* Centralizar horizontalmente */
+            align-items: center; /* Centralizar verticalmente */
+            background-color: #f0f0f0; /* Cor de fundo */
         }
 
-        // Aguarda 2 segundos e, em seguida, move a mensagem para o canto superior
+        /* Estilos para a mensagem de bem-vindo */
+        .mensagem-bem-vindo {
+            font-size: 40px; /* Tamanho da fonte inicial */
+            color: #333; /* Cor do texto */
+            text-align: center; /* Alinhamento central */
+            transition: all 0.5s ease; /* Transição suave para animação */
+            position: absolute; /* Define a posição absoluta */
+            top: 20px; /* Distância do topo */
+            left: 20px; /* Distância da esquerda */
+            font-weight: bold; /* Fonte em negrito */
+        }
+
+        /* Estilos para a mensagem de bem-vindo após a transição */
+        .mensagem-bem-vindo.mover {
+            font-size: 20px; /* Tamanho de fonte ajustado após a transição */
+            top: 10px; /* Distância do topo ajustada */
+            left: 10px; /* Distância da esquerda ajustada */
+        }
+    </style>
+</head>
+<body>
+    <!-- Div para a mensagem de bem-vindo -->
+    <div id="mensagemBemVindo" class="mensagem-bem-vindo">
+        Bem-vindo!
+    </div>
+
+    <script>
+        // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
         setTimeout(function() {
-            var mensagemDiv = document.getElementById("mensagem");
-            mensagemDiv.style.position = "fixed";
-            mensagemDiv.style.top = "20px";
-            mensagemDiv.style.left = "20px"; // Movendo para o canto superior esquerdo
-            // Obtém o nome do usuário logado da URL
-            var usuarioLogado = obterParametroUrl("usuario");
+            var mensagemBemVindo = document.getElementById("mensagemBemVindo");
+            var usuarioLogado = obterUsuarioLogadoDaURL();
             if (usuarioLogado) {
-                mensagemDiv.innerText = "Bem-vindo, " + usuarioLogado;
+                mensagemBemVindo.innerText = "Bem-vindo, " + usuarioLogado + "!";
             } else {
-                mensagemDiv.innerText = "Bem-vindo";
+                mensagemBemVindo.innerText = "Bem-vindo!";
             }
-        }, 2000);
+            mensagemBemVindo.classList.add("mover");
+        }, 1000);
+
+        // Função para extrair o nome de usuário da URL
+        function obterUsuarioLogadoDaURL() {
+            var url = window.location.href;
+            var parametros = url.split("?")[1]; // Obtém os parâmetros da URL
+            if (parametros) {
+                var partes = parametros.split("&"); // Divide os parâmetros em partes
+                for (var i = 0; i < partes.length; i++) {
+                    var parametro = partes[i].split("=");
+                    if (parametro[0] === "user") {
+                        return decodeURIComponent(parametro[1]);
+                    }
+                }
+            }
+            return null; // Retorna null se o nome de usuário não estiver presente na URL
+        }
     </script>
 </body>
 </html>
