@@ -23,16 +23,18 @@
             text-align: center; /* Alinhamento central */
             transition: all 0.5s ease; /* Transição suave para animação */
             position: absolute; /* Define a posição absoluta */
-            top: 20px; /* Distância do topo */
-            left: 20px; /* Distância da esquerda */
+            top: 50%; /* Centralizar verticalmente */
+            left: 50%; /* Centralizar horizontalmente */
+            transform: translate(-50%, -50%); /* Centralizar vertical e horizontalmente */
             font-weight: bold; /* Fonte em negrito */
         }
 
         /* Estilos para a mensagem de bem-vindo após a transição */
         .mensagem-bem-vindo.mover {
             font-size: 20px; /* Tamanho de fonte ajustado após a transição */
-            top: 10px; /* Distância do topo ajustada */
-            left: 10px; /* Distância da esquerda ajustada */
+            top: 20px; /* Posição no topo */
+            left: 20px; /* Posição na esquerda */
+            transform: translate(0, 0); /* Remover o deslocamento anterior */
         }
     </style>
 </head>
@@ -63,7 +65,7 @@
                 var partes = parametros.split("&"); // Divide os parâmetros em partes
                 for (var i = 0; i < partes.length; i++) {
                     var parametro = partes[i].split("=");
-                    if (parametro[0] === "user") {
+                    if (parametro[0] === "usuario") {
                         return decodeURIComponent(parametro[1]);
                     }
                 }
