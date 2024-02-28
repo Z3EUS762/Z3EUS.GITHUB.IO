@@ -10,14 +10,25 @@
     <div id="mensagem">Bem-vindo</div>
 
     <script>
+        // Função para obter parâmetros da URL
+        function obterParametroUrl(nomeParametro) {
+            var url = new URL(window.location.href);
+            return url.searchParams.get(nomeParametro);
+        }
+
         // Aguarda 2 segundos e, em seguida, move a mensagem para o canto superior
         setTimeout(function() {
             var mensagemDiv = document.getElementById("mensagem");
+            mensagemDiv.style.position = "fixed";
             mensagemDiv.style.top = "20px";
             mensagemDiv.style.left = "20px"; // Movendo para o canto superior esquerdo
-            // Verifica qual usuário está logado (você precisa implementar essa lógica)
-            var usuarioLogado = "Samuel"; // Por exemplo, o nome do usuário logado
-            mensagemDiv.innerText = "Bem-vindo, " + usuarioLogado;
+            // Obtém o nome do usuário logado da URL
+            var usuarioLogado = obterParametroUrl("usuario");
+            if (usuarioLogado) {
+                mensagemDiv.innerText = "Bem-vindo, " + usuarioLogado;
+            } else {
+                mensagemDiv.innerText = "Bem-vindo";
+            }
         }, 2000);
     </script>
 </body>
