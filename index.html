@@ -65,6 +65,16 @@
                 mensagemDiv.style.display = "none";
             }, 3000);
         }
+        
+// Função para exibir mensagem de erro em um balão no canto superior direito
+        function exibirMensagemErro(mensagem) {
+            var mensagemErroDiv = document.getElementById("mensagemErro");
+            mensagemErroDiv.innerText = mensagem;
+            mensagemErroDiv.style.display = "block";
+            setTimeout(function() {
+                mensagemErroDiv.style.display = "none";
+            }, 3000);
+        
     </script>
 </body>
 </html>
