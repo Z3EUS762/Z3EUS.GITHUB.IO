@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- Referência ao arquivo CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="dashboard.html" method="post">
+        <form id="loginForm">
             <div class="form-group">
                 <label for="username">Usuário:</label>
                 <input type="text" id="username" name="username" required>
@@ -18,8 +19,52 @@
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Entrar</button>
+            <button type="button" onclick="fazerLogin()">Entrar</button>
         </form>
     </div>
+
+    <div id="mensagem"></div>
+
+    <script>
+        function fazerLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "" || password === "") {
+                exibirMensagem("Por favor, preencha todos os campos.", "erro");
+                return;
+            }
+
+            // Fazer uma requisição HTTP para carregar o arquivo JSON localmente
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "usuarios.json", true); // Caminho para o arquivo JSON local
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var usuarios = JSON.parse(xhr.responseText).usuarios;
+                    var credenciaisValidas = usuarios.some(function(usuario) {
+                        return usuario.username === username && usuario.password === password;
+                    });
+                    if (credenciaisValidas) {
+                        exibirMensagem("Login bem sucedido!", "sucesso");
+                        // Redirecionar para a nova tela (2tela.html)
+                        window.location.href = "2tela.html";
+                    } else {
+                        exibirMensagem("Usuário ou senha incorretos.", "erro");
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function exibirMensagem(mensagem, tipo) {
+            var mensagemDiv = document.getElementById("mensagem");
+            mensagemDiv.innerText = mensagem;
+            mensagemDiv.style.color = tipo === "sucesso" ? "green" : "red";
+            mensagemDiv.style.display = "block";
+            setTimeout(function() {
+                mensagemDiv.style.display = "none";
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
