@@ -27,8 +27,8 @@
             vertical-align: middle; /* Alinhar verticalmente */
         }
 
-        /* Estilo para o título do login */
-        h2 {
+        /* Estilo para a div que contém a imagem e o título */
+        .title-with-logo {
             display: inline-block; /* Para alinhar a imagem e o texto na mesma linha */
             vertical-align: middle; /* Alinhar verticalmente */
         }
@@ -36,11 +36,13 @@
 </head>
 <body>
     <div class="container">
-        <!-- Adicionando a imagem do logo ao lado do título -->
-        <h2>
+        <!-- Div para conter a imagem do logo e o título -->
+        <div class="title-with-logo">
+            <!-- Adicionando a imagem do logo ao lado do título -->
             <img src="logo.png" alt="Logo" class="logo">
-            Login
-        </h2>
+            <!-- Título -->
+            <h2>Login</h2>
+        </div>
         <form id="loginForm">
             <div class="form-group">
                 <label for="username">Usuário:</label>
