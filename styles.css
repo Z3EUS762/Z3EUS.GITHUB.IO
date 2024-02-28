@@ -48,3 +48,24 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+#mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: top 0.5s ease;
+}
+
+/* Estilos para o balão de mensagem de erro */
+#mensagemErro {
+    position: fixed;
+    top: 20px; /* Distância do topo */
+    right: 20px; /* Distância da direita */
+    padding: 10px;
+    background-color: #ffcccc; /* Cor de fundo */
+    color: #cc0000; /* Cor do texto */
+    border: 1px solid #cc0000; /* Cor da borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    display: none; /* Oculta inicialmente */
+}
