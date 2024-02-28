@@ -45,8 +45,8 @@
     </div>
 
     <script>
-        // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
-        setTimeout(function() {
+        // Aguarda o carregamento da página
+        window.onload = function() {
             var mensagemBemVindo = document.getElementById("mensagemBemVindo");
             var usuarioLogado = obterUsuarioLogadoDaURL();
             if (usuarioLogado) {
@@ -54,8 +54,11 @@
             } else {
                 mensagemBemVindo.innerText = "Bem-vindo!";
             }
-            mensagemBemVindo.classList.add("mover");
-        }, 1000);
+            // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
+            setTimeout(function() {
+                mensagemBemVindo.classList.add("mover");
+            }, 1000);
+        };
 
         // Função para extrair o nome de usuário da URL
         function obterUsuarioLogadoDaURL() {
