@@ -14,6 +14,7 @@
             justify-content: center; /* Centralizar horizontalmente */
             align-items: center; /* Centralizar verticalmente */
             background-color: #f0f0f0; /* Cor de fundo */
+            position: relative; /* Posição relativa para posicionamento absoluto dos elementos filhos */
         }
 
         /* Estilos para a mensagem de bem-vindo */
@@ -36,12 +37,26 @@
             left: 20px; /* Posição na esquerda */
             transform: translate(0, 0); /* Remover o deslocamento anterior */
         }
+
+        /* Estilos para a data e hora */
+        .data-hora {
+            font-size: 16px; /* Tamanho da fonte */
+            color: #666; /* Cor do texto */
+            position: absolute; /* Define a posição absoluta */
+            top: 20px; /* Distância do topo */
+            right: 20px; /* Distância da direita */
+        }
     </style>
 </head>
 <body>
     <!-- Div para a mensagem de bem-vindo -->
     <div id="mensagemBemVindo" class="mensagem-bem-vindo">
         Bem-vindo!
+    </div>
+
+    <!-- Div para a data e hora -->
+    <div id="dataHora" class="data-hora">
+        <!-- O JavaScript preencherá este conteúdo -->
     </div>
 
     <script>
@@ -58,6 +73,11 @@
             setTimeout(function() {
                 mensagemBemVindo.classList.add("mover");
             }, 1000);
+
+            // Atualiza a data e hora
+            atualizarDataHora();
+            // Chama a função a cada segundo para manter a data e hora atualizadas
+            setInterval(atualizarDataHora, 1000);
         };
 
         // Função para extrair o nome de usuário da URL
@@ -74,6 +94,24 @@
                 }
             }
             return null; // Retorna null se o nome de usuário não estiver presente na URL
+        }
+
+        // Função para atualizar a data e hora
+        function atualizarDataHora() {
+            var dataHora = new Date(); // Obter a data e hora atuais
+            var dia = dataHora.getDate();
+            var mes = dataHora.getMonth() + 1;
+            var ano = dataHora.getFullYear();
+            var hora = dataHora.getHours();
+            var minuto = dataHora.getMinutes();
+            var segundo = dataHora.getSeconds();
+
+            // Formatar a data e hora
+            var dataFormatada = dia + '/' + mes + '/' + ano;
+            var horaFormatada = hora + ':' + minuto + ':' + segundo;
+
+            // Atualizar o conteúdo da div
+            document.getElementById('dataHora').innerText = dataFormatada + ' ' + horaFormatada;
         }
     </script>
 </body>
