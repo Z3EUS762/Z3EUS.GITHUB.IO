@@ -1,0 +1,46 @@
+/* Estilos para o corpo da página 2 */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Cor de fundo */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+}
+
+/* Estilos para a barra superior azul */
+.barra-superior {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
+    align-items: center;
+}
+
+/* Estilos para a mensagem de boas-vindas - Apagar não esta sendo usado*/ 
+.mensagem-bem-vindo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff; /* Cor do texto */
+    transition: all 0.5s ease; /* Transição suave para animação */
+}
+
+/* Estilos para a data e hora */
+#dataHora {
+    font-size: 10px; /* Tamanho da fonte reduzido */
+    margin-right: 10px; /* Adiciona um espaçamento à direita */
+}
+
+/* Estilos para o botão "Sair" */
+#btnSair {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 4px 8px; /* Reduz o preenchimento do botão */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 8px; /* Tamanho da fonte reduzido */
+}
+
+#btnSair:hover { /* cor botão sair ao passar o mouse por cima*/
+    background-color: #c82333;
