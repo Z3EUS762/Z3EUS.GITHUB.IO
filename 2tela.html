@@ -16,36 +16,32 @@
             background-color: #f0f0f0; /* Cor de fundo */
         }
 
-        /* Estilos para a barra superior */
+        /* Estilos para a barra superior azul */
         .barra-superior {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 50px;
-            background-color: #3498db; /* Cor azul */
-            color: #fff; /* Cor do texto branco */
+            height: 60px;
+            background-color: #007bff;
+            color: #fff;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
         }
 
         /* Estilos para a mensagem de boas-vindas */
         .mensagem-bem-vindo {
-            font-size: 40px; /* Tamanho da fonte inicial */
-            text-align: center; /* Alinhamento central */
-            transition: all 0.5s ease; /* Transição suave para animação */
-            font-weight: bold; /* Fonte em negrito */
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Barra superior -->
+    <!-- Barra superior azul -->
     <div class="barra-superior">
-        <!-- Espaço reservado para a data e hora -->
-        <div id="dataHora"></div>
+        <div id="infoUsuario"></div>
     </div>
 
     <!-- Div para a mensagem de boas-vindas -->
@@ -56,72 +52,37 @@
     <script>
         // Aguarda o carregamento da página
         window.onload = function() {
-            var mensagemBemVindo = document.getElementById("mensagemBemVindo");
-            var usuarioLogado = obterUsuarioLogadoDaURL();
-            var nomeUsuario = obterNomeUsuario(usuarioLogado);
-            if (nomeUsuario) {
-                mensagemBemVindo.innerText = "Bem-vindo, " + nomeUsuario + "!";
-            } else {
-                mensagemBemVindo.innerText = "Bem-vindo!";
-            }
-            // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
-            setTimeout(function() {
-                mensagemBemVindo.classList.add("mover");
-            }, 1000);
+            // Carrega o arquivo JSON dos usuários
+            fetch('usuarios.json')
+            .then(response => response.json())
+            .then(data => {
+                // Obtém o nome do usuário logado
+                var usuarioLogado = obterUsuarioLogadoDaURL(data.usuarios);
+                if (usuarioLogado) {
+                    // Exibe a mensagem de boas-vindas com o nome do usuário logado
+                    document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
+                } else {
+                    // Exibe a mensagem de boas-vindas padrão
+                    document.getElementById("infoUsuario").innerText = "Bem-vindo!";
+                }
 
-            // Atualiza a data e hora
-            atualizarDataHora();
-            // Atualiza a cada segundo
-            setInterval(atualizarDataHora, 1000);
+                // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
+                setTimeout(function() {
+                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
+                    mensagemBemVindo.classList.add("mover");
+                }, 1000);
+            });
         };
 
-        // Função para extrair o nome de usuário da URL
-        function obterUsuarioLogadoDaURL() {
-            var url = window.location.href;
-            var parametros = url.split("?")[1]; // Obtém os parâmetros da URL
-            if (parametros) {
-                var partes = parametros.split("&"); // Divide os parâmetros em partes
-                for (var i = 0; i < partes.length; i++) {
-                    var parametro = partes[i].split("=");
-                    if (parametro[0] === "usuario") {
-                        return decodeURIComponent(parametro[1]);
-                    }
-                }
+        // Função para obter o usuário logado a partir dos parâmetros da URL
+        function obterUsuarioLogadoDaURL(usuarios) {
+            var urlParams = new URLSearchParams(window.location.search);
+            var usuarioLogado = urlParams.get('usuario');
+            if (usuarioLogado) {
+                // Procura pelo usuário logado na lista de usuários
+                return usuarios.find(user => user.username === usuarioLogado);
             }
-            return null; // Retorna null se o nome de usuário não estiver presente na URL
-        }
-
-        // Função para obter o nome do usuário correspondente ao username
-        function obterNomeUsuario(username) {
-            var usuarios = {
-                "usuarios": [
-                    {
-                        "username": "samuel",
-                        "password": "123",
-                        "nome": "Samuel Taylor"
-                    },
-                    {
-                        "username": "ana",
-                        "password": "123",
-                        "nome": "Ana Flavia"
-                    }
-                ]
-            };
-            for (var i = 0; i < usuarios.usuarios.length; i++) {
-                if (usuarios.usuarios[i].username === username) {
-                    return usuarios.usuarios[i].nome;
-                }
-            }
-            return null; // Retorna null se o usuário não for encontrado
-        }
-
-        // Função para atualizar a data e hora
-        function atualizarDataHora() {
-            var dataHoraElemento = document.getElementById("dataHora");
-            var dataHoraAtual = new Date();
-            var dataFormatada = dataHoraAtual.toLocaleDateString();
-            var horaFormatada = dataHoraAtual.toLocaleTimeString();
-            dataHoraElemento.textContent = dataFormatada + " - " + horaFormatada;
+            return null;
         }
     </script>
 </body>
