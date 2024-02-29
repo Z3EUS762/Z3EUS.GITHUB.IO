@@ -3,12 +3,14 @@
     {
       "username": "samuel",
       "password": "123",
-      "nome": "Samuel Taylor"
+      "nome": "Samuel Taylor",
+      "sexo": "M"
     },
     {
       "username": "ana",
       "password": "123",
-      "nome": "Ana Flavia"
+      "nome": "Ana Flavia",
+      "sexo": "F"
     }
   ]
 }
