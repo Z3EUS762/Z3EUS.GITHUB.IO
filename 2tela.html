@@ -37,6 +37,12 @@
                 var dataHoraFormatada = dataHoraAtual.toLocaleString();
                 document.getElementById("dataHora").innerText = dataHoraFormatada;
             }, 1000);
+
+            // Adiciona evento de clique ao botão "Sair"
+            document.getElementById("btnSair").addEventListener("click", function() {
+                // Redireciona para a página index.html
+                window.location.href = "index.html";
+            });
         };
 
         // Função para obter o usuário logado a partir dos parâmetros da URL
