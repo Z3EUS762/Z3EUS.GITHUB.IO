@@ -9,24 +9,17 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
             background-color: #f0f0f0; /* Cor de fundo */
-            position: relative; /* Necessário para alinhar a data e hora */
         }
 
         /* Estilos para a barra superior azul */
         .barra-superior {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
             background-color: #007bff;
             color: #fff;
+            padding: 10px;
             display: flex;
-            justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
+            justify-content: space-between;
             align-items: center;
-            padding: 0 20px; /* Espaçamento interno */
         }
 
         /* Estilos para a mensagem de boas-vindas */
@@ -34,25 +27,50 @@
             font-size: 24px;
             font-weight: bold;
             text-align: center;
-            position: absolute;
-            top: 20px;
-            right: 20px;
             color: #007bff; /* Cor do texto */
             transition: all 0.5s ease; /* Transição suave para animação */
             font-weight: bold; /* Fonte em negrito */
+        }
+
+        /* Estilos para a data e hora */
+        .data-hora {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Estilos para o conteúdo principal */
+        .conteudo-principal {
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para tornar a página responsiva */
+        @media only screen and (min-width: 768px) {
+            .conteudo-principal {
+                padding: 50px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Barra superior azul -->
     <div class="barra-superior">
-        <div id="infoUsuario"></div>
-        <div id="dataHora"></div> <!-- Adiciona div para exibir a data e hora -->
+        <div class="mensagem-bem-vindo" id="infoUsuario"></div>
+        <div class="data-hora" id="dataHora"></div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="conteudo-principal">
+        <!-- Aqui vai o conteúdo principal da página -->
     </div>
 
     <script>
         // Aguarda o carregamento da página
         window.onload = function() {
+            // Exibe a data e hora atual
+            exibirDataHora();
+
             // Carrega o arquivo JSON dos usuários
             fetch('usuarios.json')
             .then(response => response.json())
@@ -78,13 +96,16 @@
                 }, 1000);
             });
 
-            // Função para exibir a data e hora atual
-            setInterval(function() {
-                var dataHoraAtual = new Date();
-                var dataHoraFormatada = dataHoraAtual.toLocaleString();
-                document.getElementById("dataHora").innerText = dataHoraFormatada;
-            }, 1000);
+            // Atualiza a data e hora a cada segundo
+            setInterval(exibirDataHora, 1000);
         };
+
+        // Função para exibir a data e hora atual
+        function exibirDataHora() {
+            var dataHoraAtual = new Date();
+            var dataHoraFormatada = dataHoraAtual.toLocaleString();
+            document.getElementById("dataHora").innerText = dataHoraFormatada;
+        }
 
         // Função para obter o usuário logado a partir dos parâmetros da URL
         function obterUsuarioLogadoDaURL(usuarios) {
