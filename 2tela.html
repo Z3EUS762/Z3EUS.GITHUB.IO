@@ -27,9 +27,9 @@
             font-size: 24px;
             font-weight: bold;
             text-align: center;
-            color: #007bff; /* Cor do texto */
             transition: all 0.5s ease; /* Transição suave para animação */
             font-weight: bold; /* Fonte em negrito */
+            color: #007bff; /* Cor do texto */
         }
 
         /* Estilos para a data e hora */
@@ -37,6 +37,7 @@
             font-size: 16px;
             font-weight: bold;
             text-align: center;
+            color: #007bff; /* Cor do texto */
         }
 
         /* Estilos para o conteúdo principal */
@@ -68,9 +69,6 @@
     <script>
         // Aguarda o carregamento da página
         window.onload = function() {
-            // Exibe a data e hora atual
-            exibirDataHora();
-
             // Carrega o arquivo JSON dos usuários
             fetch('usuarios.json')
             .then(response => response.json())
