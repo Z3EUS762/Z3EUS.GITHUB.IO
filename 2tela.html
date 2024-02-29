@@ -23,11 +23,21 @@
             fetch('usuarios.json')
             .then(response => response.json())
             .then(data => {
-                // Obtém o nome do usuário logado
+                // Obtém o usuário logado
                 var usuarioLogado = obterUsuarioLogadoDaURL(data.usuarios);
                 if (usuarioLogado) {
-                    // Exibe a mensagem de boas-vindas com o nome do usuário logado
-                    document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
+                    // Exibe a mensagem de boas-vindas com o nome do usuário logado e o sexo
+                    var mensagemBoasVindas = "Bem-vindo";
+                    if (usuarioLogado.sexo === "F") {
+                        mensagemBoasVindas = "Bem-vinda";
+                    }
+                    document.getElementById("infoUsuario").innerText = mensagemBoasVindas + ", " + usuarioLogado.nome;
+
+                    // Adiciona evento de clique ao botão "Sair"
+                    document.getElementById("btnSair").addEventListener("click", function() {
+                        // Redireciona para a página index.html
+                        window.location.href = "index.html";
+                    });
                 } 
             });
 
@@ -37,12 +47,6 @@
                 var dataHoraFormatada = dataHoraAtual.toLocaleString();
                 document.getElementById("dataHora").innerText = dataHoraFormatada;
             }, 1000);
-
-            // Adiciona evento de clique ao botão "Sair"
-            document.getElementById("btnSair").addEventListener("click", function() {
-                // Redireciona para a página index.html
-                window.location.href = "index.html";
-            });
         };
 
         // Função para obter o usuário logado a partir dos parâmetros da URL
