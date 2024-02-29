@@ -1,0 +1,16 @@
+{
+  "clientes": [
+    {
+      "id": "1",
+      "nome": "samuel",
+      "email": "123",
+      "telefone": "",
+      "cep": "",
+      "rua": "",
+      "bairro": "",
+      "cidade": "",
+      "estado": ""
+    },
+
+  ]
+}
