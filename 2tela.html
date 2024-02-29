@@ -9,33 +9,31 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
             background-color: #f0f0f0; /* Cor de fundo */
-            position: relative; /* Necessário para alinhar a data e hora */
+            font-family: Arial, sans-serif; /* Fonte padrão */
         }
 
         /* Estilos para a barra superior azul */
         .barra-superior {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
             background-color: #007bff;
             color: #fff;
+            padding: 10px;
             display: flex;
             justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
             align-items: center;
-            padding: 0 20px; /* Espaçamento interno */
         }
 
         /* Estilos para a mensagem de boas-vindas */
         .mensagem-bem-vindo {
             font-size: 24px;
             font-weight: bold;
-            text-align: center;
             color: #007bff; /* Cor do texto */
             transition: all 0.5s ease; /* Transição suave para animação */
+        }
+
+        /* Estilos para a data e hora */
+        #dataHora {
+            font-size: 18px;
         }
     </style>
 </head>
@@ -75,9 +73,6 @@
                 var dataHoraAtual = new Date();
                 var dataHoraFormatada = dataHoraAtual.toLocaleString();
                 document.getElementById("dataHora").innerText = dataHoraFormatada;
-
-                // Exibe também o nome de usuário (username)
-                document.getElementById("infoUsuario").innerText = usuarioLogado.username;
             }, 1000);
         };
 
