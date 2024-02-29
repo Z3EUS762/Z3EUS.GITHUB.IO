@@ -9,37 +9,51 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
+            min-height: 100vh; /* Altura mínima de 100% da viewport */
             background-color: #f0f0f0; /* Cor de fundo */
-            position: relative; /* Necessário para alinhar a data e hora */
+            font-family: Arial, sans-serif; /* Fonte genérica */
         }
 
         /* Estilos para a barra superior azul */
         .barra-superior {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
             background-color: #007bff;
             color: #fff;
+            padding: 10px;
             display: flex;
-            justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
+            justify-content: space-between;
             align-items: center;
-            padding: 0 20px; /* Espaçamento interno */
         }
 
         /* Estilos para a mensagem de boas-vindas */
         .mensagem-bem-vindo {
-            font-size: 24px;
+            font-size: 2em; /* Tamanho da fonte */
             font-weight: bold;
-            text-align: center;
-            position: absolute;
-            top: 20px;
-            right: 20px;
             color: #007bff; /* Cor do texto */
-            transition: all 0.5s ease; /* Transição suave para animação */
-            font-weight: bold; /* Fonte em negrito */
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Estilos para a data e hora */
+        .data-hora {
+            font-size: 1em; /* Tamanho da fonte */
+            color: #fff; /* Cor do texto */
+        }
+
+        /* Media Query para telas menores */
+        @media (max-width: 768px) {
+            .barra-superior {
+                flex-direction: column; /* Empilhar os itens verticalmente */
+                height: auto; /* Altura automática */
+            }
+
+            .mensagem-bem-vindo {
+                font-size: 1.5em; /* Tamanho da fonte reduzido */
+                margin-top: 10px; /* Espaçamento superior reduzido */
+            }
+
+            .data-hora {
+                font-size: 0.8em; /* Tamanho da fonte reduzido */
+            }
         }
     </style>
 </head>
@@ -49,6 +63,9 @@
         <div id="infoUsuario"></div>
         <div id="dataHora"></div> <!-- Adiciona div para exibir a data e hora -->
     </div>
+
+    <!-- Mensagem de boas-vindas -->
+    <div class="mensagem-bem-vindo" id="mensagemBemVindo"></div>
 
     <script>
         // Aguarda o carregamento da página
@@ -66,18 +83,12 @@
                     // Exibe a mensagem de boas-vindas padrão
                     document.getElementById("infoUsuario").innerText = "Bem-vindo!";
                 }
-
-                // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
-                setTimeout(function() {
-                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
-                    mensagemBemVindo.classList.add("mover");
-                }, 1000);
             });
 
-            // Função para exibir a data e hora atual
+            // Função para atualizar a data e hora a cada segundo
             setInterval(function() {
-                var dataHoraAtual = new Date();
-                var dataHoraFormatada = dataHoraAtual.toLocaleString();
+                var agora = new Date();
+                var dataHoraFormatada = agora.toLocaleString();
                 document.getElementById("dataHora").innerText = dataHoraFormatada;
             }, 1000);
         };
