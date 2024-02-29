@@ -4,44 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo</title>
-    <style>
-        /* Estilos para o corpo da página */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0; /* Cor de fundo */
-            font-family: Arial, sans-serif; /* Fonte padrão */
-        }
-
-        /* Estilos para a barra superior azul */
-        .barra-superior {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
-            align-items: center;
-        }
-
-        /* Estilos para a mensagem de boas-vindas */
-        .mensagem-bem-vindo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff; /* Cor do texto */
-            transition: all 0.5s ease; /* Transição suave para animação */
-        }
-
-        /* Estilos para a data e hora */
-        #dataHora {
-            font-size: 18px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles2.css"> <!-- Inclui o arquivo styles.css -->
 </head>
 <body>
     <!-- Barra superior azul -->
     <div class="barra-superior">
         <div id="infoUsuario"></div>
-        <div id="dataHora"></div> <!-- Adiciona div para exibir a data e hora -->
+        <div>
+            <span id="dataHora"></span> <!-- Adiciona span para exibir a data e hora -->
+            <button id="btnSair">Sair</button> <!-- Botão "Sair" -->
+        </div>
     </div>
 
     <script>
@@ -56,16 +28,7 @@
                 if (usuarioLogado) {
                     // Exibe a mensagem de boas-vindas com o nome do usuário logado
                     document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
-                } else {
-                    // Exibe a mensagem de boas-vindas padrão
-                    document.getElementById("infoUsuario").innerText = "Bem-vindo!";
-                }
-
-                // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
-                setTimeout(function() {
-                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
-                    mensagemBemVindo.classList.add("mover");
-                }, 1000);
+                } 
             });
 
             // Função para exibir a data e hora atual
