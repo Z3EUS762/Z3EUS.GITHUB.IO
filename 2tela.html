@@ -9,51 +9,37 @@
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Altura mínima de 100% da viewport */
+            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
             background-color: #f0f0f0; /* Cor de fundo */
-            font-family: Arial, sans-serif; /* Fonte genérica */
+            position: relative; /* Necessário para alinhar a data e hora */
         }
 
         /* Estilos para a barra superior azul */
         .barra-superior {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
             background-color: #007bff;
             color: #fff;
-            padding: 10px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
             align-items: center;
+            padding: 0 20px; /* Espaçamento interno */
         }
 
         /* Estilos para a mensagem de boas-vindas */
         .mensagem-bem-vindo {
-            font-size: 2em; /* Tamanho da fonte */
+            font-size: 24px;
             font-weight: bold;
-            color: #007bff; /* Cor do texto */
             text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Estilos para a data e hora */
-        .data-hora {
-            font-size: 1em; /* Tamanho da fonte */
-            color: #fff; /* Cor do texto */
-        }
-
-        /* Media Query para telas menores */
-        @media (max-width: 768px) {
-            .barra-superior {
-                flex-direction: column; /* Empilhar os itens verticalmente */
-                height: auto; /* Altura automática */
-            }
-
-            .mensagem-bem-vindo {
-                font-size: 1.5em; /* Tamanho da fonte reduzido */
-                margin-top: 10px; /* Espaçamento superior reduzido */
-            }
-
-            .data-hora {
-                font-size: 0.8em; /* Tamanho da fonte reduzido */
-            }
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #007bff; /* Cor do texto */
+            transition: all 0.5s ease; /* Transição suave para animação */
+            font-weight: bold; /* Fonte em negrito */
         }
     </style>
 </head>
@@ -64,9 +50,6 @@
         <div id="dataHora"></div> <!-- Adiciona div para exibir a data e hora -->
     </div>
 
-    <!-- Mensagem de boas-vindas -->
-    <div class="mensagem-bem-vindo" id="mensagemBemVindo"></div>
-
     <script>
         // Aguarda o carregamento da página
         window.onload = function() {
@@ -74,21 +57,28 @@
             fetch('usuarios.json')
             .then(response => response.json())
             .then(data => {
-                // Obtém o nome do usuário logado
+                // Obtém o usuário logado
                 var usuarioLogado = obterUsuarioLogadoDaURL(data.usuarios);
                 if (usuarioLogado) {
-                    // Exibe a mensagem de boas-vindas com o nome do usuário logado
-                    document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
+                    // Exibe a mensagem de boas-vindas com base no sexo do usuário
+                    var cumprimento = usuarioLogado.sexo === 'F' ? 'Bem-vinda' : 'Bem-vindo';
+                    document.getElementById("infoUsuario").innerText = cumprimento + ", " + usuarioLogado.nome;
                 } else {
                     // Exibe a mensagem de boas-vindas padrão
                     document.getElementById("infoUsuario").innerText = "Bem-vindo!";
                 }
+
+                // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
+                setTimeout(function() {
+                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
+                    mensagemBemVindo.classList.add("mover");
+                }, 1000);
             });
 
-            // Função para atualizar a data e hora a cada segundo
+            // Função para exibir a data e hora atual
             setInterval(function() {
-                var agora = new Date();
-                var dataHoraFormatada = agora.toLocaleString();
+                var dataHoraAtual = new Date();
+                var dataHoraFormatada = dataHoraAtual.toLocaleString();
                 document.getElementById("dataHora").innerText = dataHoraFormatada;
             }, 1000);
         };
