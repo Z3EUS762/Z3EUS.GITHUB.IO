@@ -73,7 +73,7 @@
 
                 // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
                 setTimeout(function() {
-                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
+                    var mensagemBemVindo = document.getElementById("infoUsuario");
                     mensagemBemVindo.classList.add("mover");
                 }, 1000);
             });
@@ -89,4 +89,13 @@
         // Função para obter o usuário logado a partir dos parâmetros da URL
         function obterUsuarioLogadoDaURL(usuarios) {
             var urlParams = new URLSearchParams(window.location.search);
-            var usuarioLogado
+            var usuarioLogado = urlParams.get('usuario');
+            if (usuarioLogado) {
+                // Procura pelo usuário logado na lista de usuários
+                return usuarios.find(user => user.username === usuarioLogado);
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
