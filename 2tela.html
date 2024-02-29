@@ -9,17 +9,24 @@
         body {
             margin: 0;
             padding: 0;
+            height: 100vh; /* Tornar o corpo da página 100% da altura da janela do navegador */
             background-color: #f0f0f0; /* Cor de fundo */
+            position: relative; /* Necessário para alinhar a data e hora */
         }
 
         /* Estilos para a barra superior azul */
         .barra-superior {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
             background-color: #007bff;
             color: #fff;
-            padding: 10px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Alinha o conteúdo à esquerda e à direita */
             align-items: center;
+            padding: 0 20px; /* Espaçamento interno */
         }
 
         /* Estilos para a mensagem de boas-vindas */
@@ -27,43 +34,16 @@
             font-size: 24px;
             font-weight: bold;
             text-align: center;
+            color: #007bff; /* Cor do texto */
             transition: all 0.5s ease; /* Transição suave para animação */
-            font-weight: bold; /* Fonte em negrito */
-            color: #fff; /* Cor do texto */
-        }
-
-        /* Estilos para a data e hora */
-        .data-hora {
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            color: #fff; /* Cor do texto */
-        }
-
-        /* Estilos para o conteúdo principal */
-        .conteudo-principal {
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Estilos para tornar a página responsiva */
-        @media only screen and (min-width: 768px) {
-            .conteudo-principal {
-                padding: 50px;
-            }
         }
     </style>
 </head>
 <body>
     <!-- Barra superior azul -->
     <div class="barra-superior">
-        <div class="mensagem-bem-vindo" id="infoUsuario"></div>
-        <div class="data-hora" id="dataHora"></div>
-    </div>
-
-    <!-- Conteúdo principal -->
-    <div class="conteudo-principal">
-        <!-- Aqui vai o conteúdo principal da página -->
+        <div id="infoUsuario"></div>
+        <div id="dataHora"></div> <!-- Adiciona div para exibir a data e hora -->
     </div>
 
     <script>
@@ -73,15 +53,11 @@
             fetch('usuarios.json')
             .then(response => response.json())
             .then(data => {
-                // Obtém o usuário logado
+                // Obtém o nome do usuário logado
                 var usuarioLogado = obterUsuarioLogadoDaURL(data.usuarios);
                 if (usuarioLogado) {
-                    // Exibe a mensagem de boas-vindas com base no sexo do usuário
-                    if (usuarioLogado.sexo === 'F') {
-                        document.getElementById("infoUsuario").innerText = "Bem-vinda, " + usuarioLogado.nome;
-                    } else {
-                        document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
-                    }
+                    // Exibe a mensagem de boas-vindas com o nome do usuário logado
+                    document.getElementById("infoUsuario").innerText = "Bem-vindo, " + usuarioLogado.nome;
                 } else {
                     // Exibe a mensagem de boas-vindas padrão
                     document.getElementById("infoUsuario").innerText = "Bem-vindo!";
@@ -89,21 +65,21 @@
 
                 // Aguarda 1 segundo e, em seguida, adiciona a classe "mover" à mensagem
                 setTimeout(function() {
-                    var mensagemBemVindo = document.getElementById("infoUsuario");
+                    var mensagemBemVindo = document.getElementById("mensagemBemVindo");
                     mensagemBemVindo.classList.add("mover");
                 }, 1000);
             });
 
-            // Atualiza a data e hora a cada segundo
-            setInterval(exibirDataHora, 1000);
-        };
+            // Função para exibir a data e hora atual
+            setInterval(function() {
+                var dataHoraAtual = new Date();
+                var dataHoraFormatada = dataHoraAtual.toLocaleString();
+                document.getElementById("dataHora").innerText = dataHoraFormatada;
 
-        // Função para exibir a data e hora atual
-        function exibirDataHora() {
-            var dataHoraAtual = new Date();
-            var dataHoraFormatada = dataHoraAtual.toLocaleString();
-            document.getElementById("dataHora").innerText = dataHoraFormatada;
-        }
+                // Exibe também o nome de usuário (username)
+                document.getElementById("infoUsuario").innerText = usuarioLogado.username;
+            }, 1000);
+        };
 
         // Função para obter o usuário logado a partir dos parâmetros da URL
         function obterUsuarioLogadoDaURL(usuarios) {
