@@ -108,6 +108,31 @@
             <input type="submit" value="Cadastrar">
         </form>
     </div>
+
+    <!-- Adicione os scripts do Firebase aqui -->
+    <script type="module">
+        // Importa as funções necessárias dos SDKs do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+        // TODO: Adicione SDKs para produtos do Firebase que deseja usar
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Configuração do seu aplicativo Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVzYT1236x4rD2tuutBeG4giKfVdmen9A",
+            authDomain: "cadastrocliente-2f8ab.firebaseapp.com",
+            projectId: "cadastrocliente-2f8ab",
+            storageBucket: "cadastrocliente-2f8ab.appspot.com",
+            messagingSenderId: "127070783511",
+            appId: "1:127070783511:web:2ce5310c7968beee2bf452",
+            measurementId: "G-6PGRPXGT5H"
+        };
+    
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const cepInput = document.getElementById("cep");
