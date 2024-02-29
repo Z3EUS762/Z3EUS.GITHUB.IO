@@ -13,6 +13,7 @@
         <div>
             <span id="dataHora"></span> <!-- Adiciona span para exibir a data e hora -->
             <button id="btnSair">Sair</button> <!-- Botão "Sair" -->
+            <button id="btnCadastrarCliente">Cadastrar Cliente</button> <!-- Botão "Cadastrar Cliente" -->
         </div>
     </div>
 
@@ -26,15 +27,23 @@
                 // Obtém o usuário logado
                 var usuarioLogado = obterUsuarioLogadoDaURL(data.usuarios);
                 if (usuarioLogado) {
-                    // Determina a saudação correta com base no sexo do usuário
-                    var saudacao = usuarioLogado.sexo === "F" ? "Bem-vinda" : "Bem-vindo";
-                    // Exibe a mensagem de boas-vindas com o nome do usuário logado e a saudação adequada
-                    document.getElementById("infoUsuario").innerText = saudacao + ", " + usuarioLogado.nome;
-                    
+                    // Exibe a mensagem de boas-vindas com o nome do usuário logado e o sexo
+                    var mensagemBoasVindas = "Bem-vindo";
+                    if (usuarioLogado.sexo === "F") {
+                        mensagemBoasVindas = "Bem-vinda";
+                    }
+                    document.getElementById("infoUsuario").innerText = mensagemBoasVindas + ", " + usuarioLogado.nome;
+
                     // Adiciona evento de clique ao botão "Sair"
                     document.getElementById("btnSair").addEventListener("click", function() {
                         // Redireciona para a página index.html
                         window.location.href = "index.html";
+                    });
+
+                    // Adiciona evento de clique ao botão "Cadastrar Cliente"
+                    document.getElementById("btnCadastrarCliente").addEventListener("click", function() {
+                        // Redireciona para a página cadastrocliente.html
+                        window.location.href = "cadastrocliente.html";
                     });
                 } 
             });
