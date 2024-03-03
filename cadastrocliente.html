@@ -175,19 +175,19 @@
 
                 console.log(cliente); // Exibe os dados do cliente no console
 
-                // Converta o objeto cliente para JSON
-                const clienteJSON = JSON.stringify(cliente);
+                  // Adiciona os dados do cliente ao Firestore
+                     addDoc(collection(db, "clientes"), cliente)
+                     .then((docRef) => {
+                     console.log("Documento do cliente adicionado com ID: ", docRef.id);
+                     alert("Cliente cadastrado com sucesso!");
+                // Limpa os campos do formulário após o cadastro
+                  document.getElementById("clienteForm").reset();
+            })
+            .catch((error) => {
+                console.error("Erro ao adicionar documento: ", error);
+                alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
+            });
 
-                // Envia o JSON para o arquivo clientes.json
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", "clientes.json", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log("Cliente cadastrado com sucesso!");
-                    }
-                };
-                xhr.send(clienteJSON);
             });
         });
     </script>
