@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Cliente</title>
-    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     <style>
         /* Estilos para o corpo da página */
         body {
@@ -115,9 +114,8 @@
         // Importa as funções necessárias dos SDKs do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-        // TODO: Adicione SDKs para produtos do Firebase que deseja usar
-        // https://firebase.google.com/docs/web/setup#available-libraries
-    
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
         // Configuração do seu aplicativo Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBVzYT1236x4rD2tuutBeG4giKfVdmen9A",
@@ -126,69 +124,42 @@
             storageBucket: "cadastrocliente-2f8ab.appspot.com",
             messagingSenderId: "127070783511",
             appId: "1:127070783511:web:2ce5310c7968beee2bf452",
-            measurementId: "G-6PGRPXGT5H"
+            measurementId: "G-6PGRPXGT5H""
         };
-    
+
         // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-    </script>
+        const db = getFirestore(app);
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cepInput = document.getElementById("cep");
-            cepInput.addEventListener("blur", function() {
-                const cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos do CEP
-                if (cep.length === 8) {
-                    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data); // Verifica os dados recebidos da API do ViaCEP
-                        if (!data.erro) {
-                            document.getElementById("rua").value = data.logradouro;
-                            document.getElementById("bairro").value = data.bairro;
-                            document.getElementById("cidade").value = data.localidade;
-                            document.getElementById("estado").value = data.uf;
-                        } else {
-                            alert("CEP não encontrado.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Ocorreu um erro ao consultar o CEP:", error);
-                    });
-                }
-            });
+        // Adiciona um event listener para o formulário
+        document.getElementById("clienteForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
 
-            document.getElementById("clienteForm").addEventListener("submit", function(event) {
-                event.preventDefault(); // Impede o envio padrão do formulário
+            // Obtém os valores dos campos do formulário
+            const cliente = {
+                nome: document.getElementById("nome").value,
+                email: document.getElementById("email").value,
+                telefone: document.getElementById("telefone").value,
+                cep: document.getElementById("cep").value,
+                rua: document.getElementById("rua").value,
+                bairro: document.getElementById("bairro").value,
+                cidade: document.getElementById("cidade").value,
+                estado: document.getElementById("estado").value
+            };
 
-                const cliente = {
-                    nome: document.getElementById("nome").value,
-                    email: document.getElementById("email").value,
-                    telefone: document.getElementById("telefone").value,
-                    cep: document.getElementById("cep").value,
-                    rua: document.getElementById("rua").value,
-                    bairro: document.getElementById("bairro").value,
-                    cidade: document.getElementById("cidade").value,
-                    estado: document.getElementById("estado").value
-                };
-
-                console.log(cliente); // Exibe os dados do cliente no console
-
-                  // Adiciona os dados do cliente ao Firestore
-                     addDoc(collection(db, "clientes"), cliente)
-                     .then((docRef) => {
-                     console.log("Documento do cliente adicionado com ID: ", docRef.id);
-                     alert("Cliente cadastrado com sucesso!");
-                // Limpa os campos do formulário após o cadastro
-                  document.getElementById("clienteForm").reset();
-            })
-            .catch((error) => {
-                console.error("Erro ao adicionar documento: ", error);
-                alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
-            });
-
-            });
+            // Adiciona os dados do cliente ao Firestore
+            addDoc(collection(db, "clientes"), cliente)
+                .then((docRef) => {
+                    console.log("Documento do cliente adicionado com ID: ", docRef.id);
+                    alert("Cliente cadastrado com sucesso!");
+                    // Limpa os campos do formulário após o cadastro
+                    document.getElementById("clienteForm").reset();
+                })
+                .catch((error) => {
+                    console.error("Erro ao adicionar documento: ", error);
+                    alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
+                });
         });
     </script>
 
