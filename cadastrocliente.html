@@ -83,7 +83,7 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone">
+            <input type="text" id="telefone" name="telefone" title="Formato esperado: (99) 99999-9999" maxlength="15">
 
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep">
@@ -218,7 +218,10 @@
 
         // Aplica a máscara para o campo de telefone
         document.getElementById("telefone").addEventListener("input", function() {
-            const telefone = this.value.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+            let telefone = this.value.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+            if (telefone.length > 11) {
+                telefone = telefone.slice(0, 11); // Limita a quantidade de caracteres para 11
+            }
             const formattedTelefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); // Formata o telefone
             this.value = formattedTelefone; // Define o valor formatado de volta no campo
         });
