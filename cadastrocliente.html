@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Cliente</title>
-    <!-- Adicione o link para o CSS do Inputmask -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.css">
     <style>
         /* Estilos para o corpo da página */
         body {
@@ -85,8 +83,7 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telefone">Telefone:</label>
-            <!-- Adicione a classe "phone" ao campo de telefone -->
-            <input type="text" id="telefone" name="telefone" class="phone">
+            <input type="text" id="telefone" name="telefone">
 
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep">
@@ -114,9 +111,6 @@
             <input type="submit" value="Cadastrar">
         </form>
     </div>
-
-    <!-- Adicione o script do Inputmask aqui -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.js"></script>
 
     <!-- Adicione os scripts do Firebase aqui -->
     <script type="module">
@@ -222,11 +216,12 @@
         // Chama a função para atualizar o código do cliente ao carregar a página
         atualizarCodigoCliente();
 
-        // Adiciona a máscara para o campo de telefone
-        Inputmask({
-            mask: "(99) 99999-9999",
-            clearIncomplete: true,
-        }).mask(document.getElementById("telefone"));
+        // Aplica a máscara para o campo de telefone
+        document.getElementById("telefone").addEventListener("input", function() {
+            const telefone = this.value.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+            const formattedTelefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); // Formata o telefone
+            this.value = formattedTelefone; // Define o valor formatado de volta no campo
+        });
     </script>
 
 </body>
