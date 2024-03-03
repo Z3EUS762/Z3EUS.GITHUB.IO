@@ -132,6 +132,36 @@
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
 
+        // Função para buscar o CEP na API do ViaCEP
+        function buscarCEP(cep) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Verifica os dados recebidos da API do ViaCEP
+                    if (!data.erro) {
+                        document.getElementById("rua").value = data.logradouro;
+                        document.getElementById("bairro").value = data.bairro;
+                        document.getElementById("cidade").value = data.localidade;
+                        document.getElementById("estado").value = data.uf;
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Ocorreu um erro ao consultar o CEP:", error);
+                });
+        }
+
+        // Adiciona um event listener para o botão de busca do CEP
+        document.getElementById("btnBuscarCEP").addEventListener("click", function() {
+            const cep = document.getElementById("cep").value.replace(/\D/g, ''); // Remove caracteres não numéricos do CEP
+            if (cep.length === 8) {
+                buscarCEP(cep);
+            } else {
+                alert("CEP inválido.");
+            }
+        });
+
         // Adiciona um event listener para o formulário
         document.getElementById("clienteForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
@@ -147,6 +177,8 @@
                 cidade: document.getElementById("cidade").value,
                 estado: document.getElementById("estado").value
             };
+
+            console.log(cliente); // Exibe os dados do cliente no console
 
             // Adiciona os dados do cliente ao Firestore
             addDoc(collection(db, "clientes"), cliente)
