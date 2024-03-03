@@ -191,57 +191,5 @@
         });
     </script>
 
-<script type="module">
-    // Importa as funções necessárias dos SDKs do Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-    // Configuração do seu aplicativo Firebase
-    const firebaseConfig = {
-        apiKey: "SUA_API_KEY",
-        authDomain: "SEU_AUTH_DOMAIN",
-        projectId: "SEU_PROJECT_ID",
-        storageBucket: "SEU_STORAGE_BUCKET",
-        messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-        appId: "SEU_APP_ID",
-        measurementId: "SEU_MEASUREMENT_ID"
-    };
-
-    // Inicializa o Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
-
-    // Adiciona um event listener para o formulário
-    document.getElementById("clienteForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
-
-        // Obtém os valores dos campos do formulário
-        const firebaseConfig = {
-         apiKey: "AIzaSyBVzYT1236x4rD2tuutBeG4giKfVdmen9A",
-         authDomain: "cadastrocliente-2f8ab.firebaseapp.com",
-         projectId: "cadastrocliente-2f8ab",
-         storageBucket: "cadastrocliente-2f8ab.appspot.com",
-         messagingSenderId: "127070783511",
-         appId: "1:127070783511:web:2ce5310c7968beee2bf452",
-         measurementId: "G-6PGRPXGT5H"
-        };
-
-
-        // Adiciona os dados do cliente ao Firestore
-        addDoc(collection(db, "clientes"), cliente)
-            .then((docRef) => {
-                console.log("Documento do cliente adicionado com ID: ", docRef.id);
-                alert("Cliente cadastrado com sucesso!");
-                // Limpa os campos do formulário após o cadastro
-                document.getElementById("clienteForm").reset();
-            })
-            .catch((error) => {
-                console.error("Erro ao adicionar documento: ", error);
-                alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
-            });
-    });
-</script>
 </body>
 </html>
