@@ -200,17 +200,18 @@
         });
 
         // Função para atualizar o campo do código do cliente
-        async function atualizarCodigoCliente() {
-            // Consulta os clientes para obter o último ID
-            const querySnapshot = await getDocs(query(collection(db, "clientes"), orderBy("codigo", "desc"), limit(1)));
-            let ultimoCodigo = 0;
-            querySnapshot.forEach((doc) => {
-                ultimoCodigo = doc.data().codigo;
-            });
-            // Incrementa o último ID e atualiza o campo no formulário
-            const novoCodigo = ultimoCodigo + 1;
-            document.getElementById("codigo").value = novoCodigo;
-        }
+async function atualizarCodigoCliente() {
+    // Consulta os clientes para obter o último ID
+    const querySnapshot = await getDocs(query(collection(db, "clientes"), orderBy("codigo", "desc"), limit(1)));
+    let ultimoCodigo = 0;
+    querySnapshot.forEach((doc) => {
+        ultimoCodigo = doc.data().codigo;
+    });
+    // Incrementa o último ID e atualiza o campo no formulário
+    const novoCodigo = parseInt(ultimoCodigo) + 1; // Converte para número e incrementa
+    document.getElementById("codigo").value = novoCodigo;
+}
+
 
         // Chama a função para atualizar o código do cliente ao carregar a página
         atualizarCodigoCliente();
