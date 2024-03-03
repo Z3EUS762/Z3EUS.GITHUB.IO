@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Cliente</title>
+    <!-- Adicione o link para o CSS do Inputmask -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.css">
     <style>
         /* Estilos para o corpo da página */
         body {
@@ -83,7 +85,8 @@
             <input type="email" id="email" name="email" required>
 
             <label for="telefone">Telefone:</label>
-            <input type="text" id="telefone" name="telefone">
+            <!-- Adicione a classe "phone" para aplicar a máscara -->
+            <input type="text" id="telefone" name="telefone" class="phone">
 
             <label for="cep">CEP:</label>
             <input type="text" id="cep" name="cep">
