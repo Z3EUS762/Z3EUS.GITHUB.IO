@@ -165,39 +165,41 @@
             }
         });
 
-        // Adiciona um event listener para o formulário
-        document.getElementById("clienteForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
+// Adiciona um event listener para o formulário
+document.getElementById("clienteForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
 
-            // Obtém os valores dos campos do formulário
-            const cliente = {
-                nome: document.getElementById("nome").value,
-                email: document.getElementById("email").value,
-                telefone: document.getElementById("telefone").value,
-                cep: document.getElementById("cep").value,
-                rua: document.getElementById("rua").value,
-                bairro: document.getElementById("bairro").value,
-                cidade: document.getElementById("cidade").value,
-                estado: document.getElementById("estado").value
-            };
+    // Obtém os valores dos campos do formulário
+    const cliente = {
+        codigo: document.getElementById("codigo").value, // Adiciona o campo "Código do Cliente"
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        telefone: document.getElementById("telefone").value,
+        cep: document.getElementById("cep").value,
+        rua: document.getElementById("rua").value,
+        bairro: document.getElementById("bairro").value,
+        cidade: document.getElementById("cidade").value,
+        estado: document.getElementById("estado").value
+    };
 
-            console.log(cliente); // Exibe os dados do cliente no console
+    console.log(cliente); // Exibe os dados do cliente no console
 
-            // Adiciona os dados do cliente ao Firestore
-            addDoc(collection(db, "clientes"), cliente)
-                .then((docRef) => {
-                    console.log("Documento do cliente adicionado com ID: ", docRef.id);
-                    alert("Cliente cadastrado com sucesso!");
-                    // Limpa os campos do formulário após o cadastro
-                    document.getElementById("clienteForm").reset();
-                    // Atualiza o campo do código do cliente para o próximo valor
-                    atualizarCodigoCliente();
-                })
-                .catch((error) => {
-                    console.error("Erro ao adicionar documento: ", error);
-                    alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
-                });
+    // Adiciona os dados do cliente ao Firestore
+    addDoc(collection(db, "clientes"), cliente)
+        .then((docRef) => {
+            console.log("Documento do cliente adicionado com ID: ", docRef.id);
+            alert("Cliente cadastrado com sucesso!");
+            // Limpa os campos do formulário após o cadastro
+            document.getElementById("clienteForm").reset();
+            // Atualiza o campo do código do cliente para o próximo valor
+            atualizarCodigoCliente();
+        })
+        .catch((error) => {
+            console.error("Erro ao adicionar documento: ", error);
+            alert("Ocorreu um erro ao cadastrar o cliente. Por favor, tente novamente.");
         });
+});
+
 
         // Função para atualizar o campo do código do cliente
 async function atualizarCodigoCliente() {
